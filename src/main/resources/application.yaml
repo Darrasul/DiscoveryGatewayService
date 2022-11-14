@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: webModule
+          uri: lb://CLIENT-WEB
+          predicates:
+            - Path=/web/**
+        - id: dbModule
+          uri: lb://CLIENT-DB
+          predicates:
+            - Path=/**
